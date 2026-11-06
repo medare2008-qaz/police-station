@@ -72,3 +72,38 @@
 /* Match the page canvas behind contained poster art and allow horizontal swipes. */
 .poster-mini{background:var(--paper)}
 .poster-mini .poster-carousel{background:var(--paper);touch-action:pan-y}
+@media(max-width:620px){
+  .subpage-content{padding:38px 0 48px}
+  .about-mobile-layout{display:flex;flex-direction:column;gap:20px}
+  .about-mobile-layout>.about-values{order:1;margin-top:0;grid-template-columns:1fr;gap:9px}
+  .about-mobile-layout>.about-page-grid{order:2;display:flex;flex-direction:column;align-items:stretch;gap:16px}
+  .about-page-grid>.about-stat{order:1;width:100%;height:120px}
+  .about-page-grid>.about-page-copy{order:2}
+  .about-page-copy h2{font-size:23px;line-height:1.5}
+  .about-page-copy>p:not(.content-placeholder){font-size:14px;line-height:1.85}
+  .about-values article{padding:14px 16px}
+  .about-values h3{font-size:14px;margin:4px 0}
+  .about-values p{font-size:12px;line-height:1.7}
+  .civil-page-grid{grid-template-columns:1fr;gap:16px}
+  .civil-page-grid>.civil-guide-page{order:1}
+  .civil-page-grid>.civil-form-card{order:2}
+  .civil-guide-page,.civil-form-card{padding:18px}
+  .civil-guide-page ul{font-size:13px;line-height:1.85}
+  .civil-guide-page li{margin:7px 0}
+  .civil-guide-page h2,.civil-form-card h2{font-size:19px}
+}
+@media(max-width:620px){
+  .about-mobile-layout>.about-page-grid{display:contents}
+  .about-mobile-layout>.about-page-grid>.about-stat{order:1;width:100%;height:auto;min-height:170px;padding:22px 25px}
+  .about-mobile-layout>.about-values{order:2}
+  .about-mobile-layout>.about-page-grid>.about-page-copy{order:3}
+  .area-page-content{display:flex;flex-direction:column;gap:24px}
+  .area-page-content>.area-station-list{order:1;margin-top:0}
+  .area-page-content>.area-grid{order:2}
+}
+.area-details>.area-station-list{margin:12px 0 6px}
+.area-details>.area-station-list .section-heading{align-items:flex-start;margin-bottom:10px}
+.area-details>.area-station-list .section-heading>p{font-size:10px;line-height:1.55;text-align:left}
+.area-details>.area-station-list .section-heading h2{font-size:15px;margin:2px 0 0}
+.area-details>.area-station-list .station-placeholder{display:block;padding:13px}
+.area-details>.area-station-list .station-placeholder span{display:block;margin-top:5px}
