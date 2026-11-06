@@ -14,7 +14,7 @@ const searchSummary = document.querySelector("#search-summary");
 const resourceEmpty = document.querySelector("#resource-empty");
 let activeNoticeCategory = "all";
 
-// 시민 안전 포스터를 자동으로 전환하며, 버튼으로도 직접 이동할 수 있습니다.
+// 시민 안전 포스터를 자동으로 전환하며, 모바일에서는 좌우 스와이프로 이동할 수 있습니다.
 const posterCarousel = document.querySelector(".poster-carousel");
 if (posterCarousel) {
   const slides = [...posterCarousel.querySelectorAll(".poster-slide")];
@@ -22,6 +22,8 @@ if (posterCarousel) {
   const pauseButton = document.querySelector(".poster-pause");
   let currentPoster = 0;
   let rotationTimer;
+  let touchStartX = null;
+  let touchStartY = null;
   let rotationPaused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (pauseButton && rotationPaused) {
     pauseButton.textContent = "자동 넘김 시작";
@@ -50,6 +52,26 @@ if (posterCarousel) {
   posterCarousel.querySelector(".poster-prev")?.addEventListener("click", () => { showPoster(currentPoster - 1); startRotation(); });
   posterCarousel.querySelector(".poster-next")?.addEventListener("click", () => { showPoster(currentPoster + 1); startRotation(); });
   dots.forEach((dot, index) => dot.addEventListener("click", () => { showPoster(index); startRotation(); }));
+  posterCarousel.addEventListener("touchstart", (event) => {
+    const touch = event.changedTouches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+  }, { passive: true });
+  posterCarousel.addEventListener("touchend", (event) => {
+    if (touchStartX === null || touchStartY === null) return;
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchStartX;
+    const deltaY = touch.clientY - touchStartY;
+    touchStartX = null;
+    touchStartY = null;
+    if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+    showPoster(currentPoster + (deltaX < 0 ? 1 : -1));
+    startRotation();
+  }, { passive: true });
+  posterCarousel.addEventListener("touchcancel", () => {
+    touchStartX = null;
+    touchStartY = null;
+  }, { passive: true });
   pauseButton?.addEventListener("click", () => {
     rotationPaused = !rotationPaused;
     pauseButton.setAttribute("aria-pressed", String(rotationPaused));

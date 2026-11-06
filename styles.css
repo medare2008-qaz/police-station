@@ -69,3 +69,6 @@
 .poster-mini .poster-slide{padding:0}
 @media(max-width:620px){.poster-mini .poster-slide{padding:0}}
 
+/* Match the page canvas behind contained poster art and allow horizontal swipes. */
+.poster-mini{background:var(--paper)}
+.poster-mini .poster-carousel{background:var(--paper);touch-action:pan-y}
